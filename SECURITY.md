@@ -13,6 +13,19 @@
   `Content-Security-Policy`、`X-Frame-Options: DENY` 等响应头，降低 XSS / 点击劫持风险。
   项目没有第三方脚本、CDN 或远程字体。
 
+## 已修复的审计问题（2026-11）
+
+- **任务结果越权读取**：`/api/jobs/{id}` 原实现不需要凭证，且任务 ID 递增，任何人都可以枚举并读取他人任务结果
+  （例如排行榜返回的其他玩家昵称/头像）。现在任务保存提交者 Token 的 SHA-256 指纹，读取时必须携带同一 Token，
+  缺失返回 401、不匹配返回 404。
+- **扫码 Token 可重复获取**：轮询接口原实现会把已下发的 Token 反复返回。现在 Token 只下发一次，重复轮询返回 410；
+  前端在 `confirmed` 后立即停止轮询。
+- **日志包含个人信息**：服务端日志不再打印 openid / 昵称，只记录“登录成功”。
+- **资源耗尽**：扫码会话（32）、并发任务（8）、任务表（256）均有上限；请求体限制 1 MiB；HTTP 服务器配置读写超时。
+- **浏览器侧加固**：新增 CSP（`default-src 'self'` 等）、`X-Frame-Options: DENY`、`Permissions-Policy`、
+  `Cross-Origin-Resource-Policy`。
+- **敏感数据清理**：仓库中的真实昵称、账号相关 fixture 已替换为示例数据；本地数据库、调试二进制与内部笔记不纳入版本控制。
+
 ## 公开部署建议
 
 1. **使用 HTTPS 反向代理**（Caddy / Nginx / Cloudflare Tunnel），避免 Token 在明文 HTTP 中传输。
