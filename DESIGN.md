@@ -128,7 +128,7 @@ internal/protocol   login_buffer 解析、mmtls/shortlink、小程序 js-login
 internal/game       游戏接口客户端、HMAC 签名、各玩法批量操作
 internal/app        扫码状态机、Token 一次性下发、任务调度、Service 实现
 internal/api        HTTP 路由、内嵌前端、SPA fallback、安全响应头
-internal/store      SQLite 工具库（仅 cmd/probe 使用，Web 服务不 import）
+internal/store      SQLite 工具库（仅 cmd/probe 使用，Web 服务不打开数据库）
 frontend            Vue 3 + Vue Router + Vite + TypeScript
 assets/dist         前端构建产物（go:embed）
 deploy              systemd unit 与安装脚本

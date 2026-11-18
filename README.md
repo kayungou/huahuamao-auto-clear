@@ -58,7 +58,7 @@ sequenceDiagram
 | 游戏 Token、微信昵称/openid | 浏览器 Cookie `sgz_session` | 180 天，换设备/清 Cookie 后重新扫码 |
 | 微信 `login_buffer`、mmtls 会话 | 服务进程内存 | 换 Token 后立即丢弃 |
 | 任务历史 / 主题 / 默认参数 | 浏览器 localStorage | 仅本机 |
-| 服务端数据库 | —— | 不存在（旧版 SQLite 已移除） |
+| 服务端数据库 | —— | 不创建：SQLite 代码仅保留给调试 CLI，Web 服务不打开数据库 |
 
 - `/api/jobs/{id}` 需要与提交任务时相同的 Token，避免任务结果被枚举。
 - 扫码 Token 只返回一次；扫码会话、并发任务、任务表均有上限。
