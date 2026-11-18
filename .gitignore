@@ -1,0 +1,25 @@
+# 本地运行数据：旧版 SQLite 数据库（Web 服务已不再使用）
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# 调试 CLI 的中间产物（二维码图片、login_buffer 等）
+cmd/probe/out/
+
+# 编译产物（只忽略根目录二进制，不忽略 cmd/probe 源码）
+/probe
+/sgz-web
+*.exe
+
+# 内部研究笔记（不对外公开）
+internal/protocol/NOTES.md
+
+# 前端依赖与构建缓存
+frontend/node_modules/
+frontend/.pnpm-store/
+frontend/.vite/
+
+# 系统与编辑器
+.DS_Store
+*.log
